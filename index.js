@@ -12,7 +12,7 @@ mongoose
 .catch((err) => console.log(err))
 
 app.use(jobRouters)
-app.listen(10000, () => console.log("Express Server is running on 8080"))
+app.listen(10000, () => console.log("Express Server is running on 10000"))
 
 //DiEmry6N3GFHly1s
 // mongodb+srv://parwindersinghbatra:<password>@appjobs.rhgvqmh.mongodb.net/

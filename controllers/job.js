@@ -22,16 +22,13 @@ const listJob = async (req, res) => {
 try{
     const {minSalery, maxSalery} = req.query.minSalery;
     const jobList = await JobModel.find({
-      $and: [{salery:{$get: minSalery}}, { salery: { $lte: maxSalery }}],
+    //   $and: [{salery:{$get: minSalery}}, { salery: { $lte: maxSalery }}],
+            salery: { $gte: minSalery }
     });
     res.json({
       success: true,
       message: "Job list successfully",
       results: jobList,
-    });
-    res.json({
-      success: true,
-      message: "List jobs successfully",
     });
 }
 catch(err){

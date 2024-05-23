@@ -1,42 +1,60 @@
 const JobModel = require("../models/job");
 
 const createJob = async (req, res) => {
-  const jobObj = req.body;
-  const newJob = new JobModel(jobObj);
-  await newJob.save();
-  console.log(jobObj);
+try{
+    const jobObj = req.body;
+    const newJob = new JobModel(jobObj);
+    await newJob.save();
+    console.log(jobObj);
+  
+    res.json({
+      success: true,
+      message: "Created job successfully",
+    });
+}catch(err){
+        res.json({success: false, message: "Something went wrong with Creating Jobs"});
+}
 
-  res.json({
-    success: true,
-    message: "Created job successfully",
-  });
+ 
 };
 
 const listJob = async (req, res) => {
-  const {minSalery, maxSalery} = req.query.minSalery;
-  const jobList = await JobModel.find({
-    $and: [{salery:{$get: minSalery}}, { salery: { $lte: maxSalery }}],
-  });
-  res.json({
-    success: true,
-    message: "Job list successfully",
-    results: jobList,
-  });
-  res.json({
-    success: true,
-    message: "List jobs successfully",
-  });
+try{
+    const {minSalery, maxSalery} = req.query.minSalery;
+    const jobList = await JobModel.find({
+      $and: [{salery:{$get: minSalery}}, { salery: { $lte: maxSalery }}],
+    });
+    res.json({
+      success: true,
+      message: "Job list successfully",
+      results: jobList,
+    });
+    res.json({
+      success: true,
+      message: "List jobs successfully",
+    });
+}
+catch(err){
+    res.json({success: false, message:"Something went wrong with List Jobs"});
+}
+  
 };
 
 const editJob = async (req, res) => {
-    const jobId = req.params.id
-    console.log(jobId);
-    console.log(req.body)
-    await JobModel.findByIdAndUpdate(jobId, req.body)
- res.json({
-    success: true,
-    message: "Edit jobs successfully",
-  });
+    try{
+        const jobId = req.params.id
+        console.log(jobId);
+        console.log(req.body)
+        await JobModel.findByIdAndUpdate(jobId, req.body)
+     res.json({
+        success: true,
+        message: "Edit jobs successfully",
+      });
+    }
+    catch(erro){
+        res.json({success: false, message:"Something went wrong with Edit Jobs"});
+    }
+   
 };
 
 const deleteJob = async (req, res) => {
